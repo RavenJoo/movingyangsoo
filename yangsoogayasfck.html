@@ -1,0 +1,93 @@
+<!--
+This project was made just for fun while studying JavaScript.
+You can freely use it to your own advantage.
+
+P.S. I did not use CSS on purpose.
+-->
+
+<html>
+	<head>
+		<title>YANGSOO IN DA HOUSE</title>
+		
+		<script type="text/javascript">
+			// initialize variables
+			var pic = null;
+			var maxH = 0;
+			var maxW = 0;
+			var h = 0;
+			var w = 0;
+			var curH = 0;
+			var curW = 0;
+			var counter = 0;
+			
+			// sets a random target coordinate
+			function setCoor() {
+				h = Math.floor(Math.random() * maxH);
+				w = Math.floor(Math.random() * maxW);
+			}			
+			
+			// animation function
+			function moveIt() {
+				curH = parseInt(pic.style.top);
+				curW = parseInt(pic.style.left);
+				
+				if (curH < h) {
+					pic.style.top = parseInt(pic.style.top) + 1 + 'px';
+				}
+				else if (curH > h) {
+					pic.style.top = parseInt(pic.style.top) - 1 + 'px';
+				}
+				
+				if (curW < w) {
+					pic.style.left = parseInt(pic.style.left) + 1 + 'px';
+				}
+				else if (curW > w) {
+					pic.style.left = parseInt(pic.style.left) - 1 + 'px';
+				}
+				
+				if ( (curH == h) && (curW == w) ) {
+					setCoor();
+				}
+				
+				// color changing mechanism
+				// change the counter values in ifs
+				// for faster/slower color change
+				counter = counter + 1;
+				if (counter == 90) { document.bgColor = '#1569C7'; }
+				if (counter == 180) { document.bgColor = '#52D017'; }
+				if (counter == 270) { document.bgColor = '#F75D59'; }
+				if (counter == 360) { 
+					document.bgColor = '#FFF380';
+					counter = 0;
+				}
+				setTimeout(moveIt,1); // recursion
+			}
+			
+			// initialization function
+			function init() {
+				pic = document.getElementById("picture");
+				pic.style.position = 'relative';
+				pic.style.left = '0px';
+				pic.style.top = '0px';
+				maxH = window.innerHeight - 187; // cast it according to image size so the image does not leave the visible area
+				maxW = window.innerWidth - 138;
+				curH = Math.floor(Math.random() * maxH); // sets the random starting point
+				curW = Math.floor(Math.random() * maxW);
+				pic.style.left = curW + 'px';
+				pic.style.top = curH + 'px';
+				setCoor();
+				moveIt();
+			}
+			
+			window.onload = init;
+		
+		</script>
+	</head>
+	
+	<body>
+		<img src="yangsooooo.gif" id="picture" />
+		<audio autoplay loop>
+			<source src="No tango no cello.mp3" type="audio/mpeg"> // audio source: https://soundcloud.com/charlie-michelangelo-socrates/nevermind-thefunk
+		</audio>
+	</body>
+</html>
